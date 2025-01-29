@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    env: demo # This is the lable for the deployment
+spec:
+  template:
+    metadata:
+      name: nginx
+      labels:
+        env: demo # This is the label attached to the pod
+    spec: # this is specification for container
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+  replicas: 3
+  selector: #the selector will match the pods with label env=demo to the deployment with same label
+    matchLabels: 
+      env: demo

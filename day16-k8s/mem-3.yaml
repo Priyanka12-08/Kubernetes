@@ -1,0 +1,18 @@
+#when we exceed the limit of the resource while setting the limit i.e. memory is limited to 1000Gi more the the actual available memory on the resource
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-demo-1
+  namespace: mem-example
+spec:
+  containers:
+  - name: memory-demo-2-ctr
+    image: polinux/stress #built for stress testing 
+    resources:
+      requests:
+        memory: "1000Gi" # is the memory allocated to the pod
+      limits:
+        memory: "1000Gi" # if limit is crossed it will kill the node
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "150M", "--vm-hang", "1"]

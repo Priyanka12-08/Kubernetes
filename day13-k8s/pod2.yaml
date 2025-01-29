@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2025-01-16T23:17:00Z"
+  labels:
+    run: redis
+    tier: backend
+    type: app1
+  name: redis
+  namespace: default
+  resourceVersion: "4650"
+  uid: a4031f55-5374-4aeb-8b24-bfbb46ea2124
+spec:
+  containers:
+  - image: redis
+    name: redis
+  nodeName: cka-cluster-worker2 #since nodeName is mentioned it indicates that scheduler does not have to assign this pod 
+
+    

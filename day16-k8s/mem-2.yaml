@@ -1,0 +1,18 @@
+#when the pod overrides the specified limit for the allocated resource
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-demo
+  namespace: mem-example
+spec:
+  containers:
+  - name: memory-demo-2-ctr
+    image: polinux/stress #built for stress testing 
+    resources:
+      requests:
+        memory: "50Mi" # is the memory allocated to the pod
+      limits:
+        memory: "100Mi" # if limit is crossed it will kill the node
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "250M", "--vm-hang", "1"]

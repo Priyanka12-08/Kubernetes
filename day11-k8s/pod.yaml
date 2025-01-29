@@ -1,0 +1,26 @@
+# Creating multi Container pod environment with an init container
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    app.kubernetes.io/name: MyApp
+spec:
+  containers:
+  - name: myapp-container # this is the my app container depending on the init container
+    image: busybox:1.28
+    env:
+    - name: FIRSTNAME
+      value: "priyanka"
+    command: ['sh', '-c', 'echo The app is running && sleep 3600']
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    command: ['sh', '-c']
+    args: ['until nslookup myservice.default.svc.cluster.local;do echo Waiting for service to be up;sleep 2;done'] 
+  - name: init-mydb
+    image: busybox:1.28
+    command: ['sh', '-c']
+    args: ['until nslookup mydb.default.svc.cluster.local;do echo Waiting for service to be up;sleep 2;done'] 
+ 
+

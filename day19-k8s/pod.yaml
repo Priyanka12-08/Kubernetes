@@ -1,0 +1,31 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    app.kubernetes.io/name: MyApp
+spec:
+  containers:
+  - name: myapp-container # this is the my app container depending on the init container
+    image: busybox:1.28
+    env:
+    - name: FIRSTNAME # name of the variable in container not the same as key given in the config map
+      valueFrom:
+        configMapKeyRef:
+          name: app-cm #name of the config map created
+          key: firstname # key ref mentioned in the configmap case sensitive
+    - name: LASTNAME # name of the variable in container not the same as key given in the config map
+      valueFrom:
+        configMapKeyRef:
+          name: app-cm #name of the config map created
+          key: lastname # key ref mentioned in the configmap case sensitive
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  
+
+  # Create config map in imperative way
+  #k create cm app-cm --from-literal=firstname=Priyanka \ --from-literal=lastname=Balaraj
+
+  #Create it in declarative way
+  #k create cm app-cm<name of the config map> --from-literal=firstname<key>=Priyanka<value> \<if multiple key value use '\'to seperate them>
+  #--from-literal=lastname<firstname>=Balaraj<value> --dry-run=client -o yaml > cm.yaml  <will create a yaml file for ConfigMap>

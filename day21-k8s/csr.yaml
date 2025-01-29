@@ -1,0 +1,18 @@
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: newadmin
+spec:
+  # THE BELOW REQUEST IS BASE 64 ENCODED CERTIFICATE SIGNING REQUEST FOR THE USER ---> COMMAND : cat newadmin.csr | base64 | tr -d "\n"
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1dEQ0NBVUFDQVFBd0V6RVJNQThHQTFVRUF3d0libVYzWVdSdGFXNHdnZ0VpTUEwR0NTcUdTSWIzRFFFQgpBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ1hpMGZRSXlHUjliVVZGWng0eUZBZ05hUnJyM1NiV3FrZU1Nckx0cktBCkc3Rjl5YWk5VE9rRFlVM0Qyc3lnMlllYSs3M0RZOURVbWpsQ1VzeDVESDBETi9zZWVQak5hTDdTWHRWSEliZzMKYzRqMWwvNm1ReXppeWo1OWd0ZTlhd2tTdS94WVMrZGRHeERMZnV0SE1SQmhFVVFWS2pBUjIrY2hJTnJaLyt0dwpidWd1dVdPYS9ua2tiWDFUME1lczlHNFhQd0c3Q3JrNHdKTTJ4cy83bzcxeXYyV3BjbmtTRUtPMjF5V0E1dDZ5ClNPTVQzcE1ZUmoxVUJabGU5VXpDUWNZOWtQZDhVdW5GL3JLS05oRlRzUkU0Q28wTnpicUl2RHN5c3V0TGRUcFkKaU5zaDJjUHN2aTZCVjMxd1ZZMmdvVkRlTTQydVRVOG1LK3k2VEhKY0Z4K0hBZ01CQUFHZ0FEQU5CZ2txaGtpRwo5dzBCQVFzRkFBT0NBUUVBaUMrclpndDNZZHIvaU9JaG5zdjFwSmpFTnhvdHd6Vjk2SzFDSkUvbjlTVGJZVXZmCkl6MXFYVy9RTmhDRHVIenpSNGZIelptcHdidHdNUTQvWVlSYk1nY2RTclFHWjdJZHZyeDRacmlkQ0lXL1dGWUoKcS9Yc09DYjR4WG9pQ0hGL25Ca2lTTmtvUFdNUENPempjZXlXR0pIaE1wOUQ3RDZONXUvbDkvMGo3QWwwR1JPMwpQNlN5bXI1ZTRoTVMxS29sY0pObzVCWmtKUDVYNCtoZ2FYMFIzUHd1VjhkdnpWTjRIajF2dDVmRE91ZUNSb3VPCnFSR3I3M0VyQlo5R3RDNGxuMWhqUWhwR0lkOFV1UXMyelVLeHk3TzVDcStmLzZDNm1VOE9aSEx0Z3dvczhySUQKREwyQ1A4eUNKRmd3bmRqVU5wRVpqRUJQS1I0MUx2cENJUjJOZWc9PQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K
+  signerName: kubernetes.io/kube-apiserver-client
+  expirationSeconds: 86400  # one day
+  usages:
+  - client auth
+
+  # On running the command it will be in PENDING as it is not approved by the CA
+
+#k get csr
+#NAME       AGE   SIGNERNAME                            REQUESTOR       REQUESTEDDURATION   CONDITION
+#newadmin   8s    kubernetes.io/kube-apiserver-client   minikube-user   24h                 Pending
+#Now since it is locally hosted we can approve by running the command k certificate approve newadmin<the certificate name>

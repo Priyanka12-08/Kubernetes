@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  firstname: Priyanka
+  lastname: Balaraj
+kind: ConfigMap
+metadata:
+  name: appconfigmap
