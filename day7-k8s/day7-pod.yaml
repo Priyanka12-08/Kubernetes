@@ -11,3 +11,7 @@ spec: # container specifications
     image: nginx
     ports:
     - containerPort: 80 #port at which it is exposed
+  - name: nginx-container #Container name
+    image: nginx
+    ports:
+    - containerPort: 80

@@ -1,0 +1,20 @@
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: krishna
+spec:
+  # THE BELOW REQUEST IS BASE 64 ENCODED CERTIFICATE SIGNING REQUEST FOR THE USER ---> COMMAND : cat newadmin.csr | base64 | tr -d "\n"
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1Z6Q0NBVDhDQVFBd0VqRVFNQTRHQTFVRUF3d0hhM0pwYzJodVlUQ0NBU0l3RFFZSktvWklodmNOQVFFQgpCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFMMitxQjBlZ2dnV285K1NxdFJJSWZkUWFSVW4wS3lmUzNISnNQK3UyMDBICjYxM25hYlhWeGd1V0ZUcTQzQm5hWDlHRGFKeUJLd1A3NVQvejRpV1IyT0VCTE8zUUgzYXcvZ0pTd2J2Z3BRdEkKcGlCdmQwNnpjTjJzZlJGNno0SDJiY0tPYVlhdlJQUWlOeURBOUZ0QXZzTkRSaGFEWWFCbC9oeExwKzRaM3FraQpvMi9PdTZNNzRuV1RjSHdidVArTG81MVRHNXhLYWZEWTlMNkVzQUNSMXNYeHJTTGRQbjRtZGV5OVArT2p1YytJCmFTWG16UDgxdEkrT1ZCQWc1YTNzVGExbFpQNWEvS254T3ZSOFZyeW00dVhoNHBPOUwzaFFOSE1YVmpzcFhBRVoKNmVOcVVjbjRKYmx4MThjT0xRUDFuaUx1ZEhxVU5OQ3Rzbk9MNlFIbzNiMENBd0VBQWFBQU1BMEdDU3FHU0liMwpEUUVCQ3dVQUE0SUJBUUNBWEN6ZllJTXNEQWordUliSmN3cDBQQ2xJTTRWcEhYeFkzR1ZKVVhYVnF2NXNmUldhCjBKb25iVlB3VW9wa1o2UEZUWHloeExSbW9UM2VNQlovSmdGNzNRU3dpMUFnd1ZPL1FKMzhMS0Q3N3Q3VVhoQ2UKd2RqWFVoMzhRQWladFJnaElmWktGdHZySVZTM0pjTkc2RFo0Sm95NVErUGxqeko5UGxBaFJxOHk2TzlIRDZQTQo2N3JHYWo2NDJkZ1VFUm13RzlGdDhPZGF0ZWVBQmQwc2p0bm5lbWdITHBNYm05aEJqTFhDbE9JYUVZbWFWcFgwCnJsS3RJWk1RUlJpRFNIeHFTaVFKK2ZvdnprWXpGUmxmVlJJVUk2YkVXMGMxSTRRd2o4eWZGOFY3WlVPOTlKVzcKUnBhUTlsQkYzckpteHM2bkgyaktTZnVMT0R3OE5PMUFXNW5UCi0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+  signerName: kubernetes.io/kube-apiserver-client
+  expirationSeconds: 86400000  # one day
+  usages:
+  - client auth
+
+
+  # If the k apply -f <filename.yaml> --- fails with auth change the context and then try applying the file.
+  # k config get-contexts
+  # k config use-contexts <context name> 
+
+  #ROLE DOES NOT ALLOW TO GET PODS
+  # k get pods --as krishna
+#ERROR from server (Forbidden): pods is forbidden: User "krishna" cannot list resource "pods" in API group "" in the namespace "default"
